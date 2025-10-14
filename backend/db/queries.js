@@ -3,13 +3,6 @@ const prisma = new PrismaClient();
 
 async function main() {
   // db queries
-    await prisma.user.create({
-        data: {
-            email: 'brandon.parkerson.dev@gmail.com',
-            name: 'Brandon Parkerson',
-            
-        }
-    })
 
   const allUsers = await prisma.user.findMany();
   console.log(allUsers);
@@ -25,3 +18,5 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
+
+module.exports = {main};
