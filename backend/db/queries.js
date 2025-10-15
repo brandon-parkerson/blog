@@ -1,4 +1,5 @@
 const { PrismaClient } = require("../generated/prisma");
+
 const prisma = new PrismaClient();
 
 async function main() {
@@ -26,6 +27,12 @@ async function main() {
   }
 }
 
+async function allUsers() {
+  console.log("get all users called");
+  const users = await prisma.user.findMany();
+  console.log(users);
+}
+
 main()
   .then(async () => {
     await prisma.$disconnect();
@@ -36,4 +43,4 @@ main()
     process.exit(1);
   });
 
-module.exports = { main };
+module.exports = { main, allUsers };
