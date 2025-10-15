@@ -2,12 +2,29 @@ const { PrismaClient } = require("../generated/prisma");
 const prisma = new PrismaClient();
 
 async function main() {
+  // mock user
+  const userData = {
+    email: "brandon.parkerson.dev@gmail.com",
+    password: "123",
+    name: "Brandon Parkerson",
+    writer: true,
+  };
   // db queries
-
-  const allUsers = await prisma.user.findMany();
-  console.log(allUsers);
+  const users = await prisma.user.findMany();
+  if (users.length === 0) {
+    const user = await prisma.user.create({
+      data: {
+        email: "brandon.parkerson.dev@gmail.com",
+        password: "123",
+        name: "Brandon Parkerson",
+        writer: true,
+      },
+    });
+    console.log("added user");
+  } else {
+    console.log(users);
+  }
 }
-
 
 main()
   .then(async () => {
@@ -19,4 +36,4 @@ main()
     process.exit(1);
   });
 
-module.exports = {main};
+module.exports = { main };

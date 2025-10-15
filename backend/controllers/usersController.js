@@ -11,13 +11,29 @@ exports.getRegister = (req, res) => {
 };
 
 exports.getAllPosts = (req, res) => {
-  res.json({
-    message: "getting all posts",
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        message: "got all posts",
+        authData,
+      });
+    }
   });
 };
 
 exports.getPost = (req, res) => {
-  res.send("get post");
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        message: "got single post",
+        authData,
+      });
+    }
+  });
 };
 
 // post controllers
@@ -27,6 +43,7 @@ exports.login = (req, res) => {
     id: 1,
     username: "brandon",
     email: "brandon@gmail.com",
+    isWriter: true,
   };
   jwt.sign({ user: user }, "secretkey", { expiresIn: "24h" }, (err, token) => {
     res.json({
@@ -39,10 +56,14 @@ exports.publish = (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.sendStatus(403);
+    } else if (authData.user.isWriter === true) {
+      res.json({
+        message: "got to publishing page",
+        authData,
+      });
     } else {
       res.json({
-        message: "post created",
-        authData,
+        message: "not allowed in here",
       });
     }
   });

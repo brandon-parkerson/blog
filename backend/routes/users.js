@@ -5,7 +5,7 @@ const userController = require("../controllers/usersController");
 // get routes
 router.get("/", userController.getIndex);
 router.get("/register", userController.getRegister);
-router.get("/posts", userController.getAllPosts);
+router.get("/posts", verifyToken, userController.getAllPosts);
 router.get("/posts/:postId", userController.getPost);
 
 // post routes
