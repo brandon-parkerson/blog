@@ -37,6 +37,7 @@ model User {
   email   String   @unique
   password String?  
   name    String?
+  writer Boolean @default(false)
   posts   Post[]
   comments Comment[]
 }

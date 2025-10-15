@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "writer" BOOLEAN NOT NULL DEFAULT false,
+ALTER COLUMN "password" SET DATA TYPE TEXT;
