@@ -11,6 +11,7 @@ router.get("/posts/:postId", userController.getPost);
 // post routes
 router.post("/login", userController.login);
 router.post("/publish", verifyToken, userController.publish);
+router.post("/register", userController.addUser);
 
 function verifyToken(req, res, next) {
   // get auth header value

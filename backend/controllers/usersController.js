@@ -70,3 +70,11 @@ exports.publish = (req, res) => {
     }
   });
 };
+
+exports.addUser = (req, res) => {
+  // get data from form
+  console.log(req.body.email);
+  // add data to db
+
+  // redirect to login page
+}

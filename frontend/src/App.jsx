@@ -1,27 +1,17 @@
 import { useEffect, useState } from "react";
-
+import { Route, Routes } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
 import "./App.css";
 
-async function getUser() {
-  const URL = "http://localhost:3000/";
-  try {
-    const response = await fetch(URL);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const result = await response.json();
-    console.log(result);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function App() {
-  getUser();
+  const URL = "http://localhost:3000/";
   return (
     <>
-      <div>test 4</div>
+      <Routes>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+      </Routes>
     </>
   );
 }

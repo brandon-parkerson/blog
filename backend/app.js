@@ -2,9 +2,12 @@ const express = require("express");
 const app = express();
 const usersRouter = require("./routes/users");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 // cors for frontend and backend being on different ports
 app.use(cors());
+// receive form data
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api", usersRouter);
 app.use("/api/register", usersRouter);
