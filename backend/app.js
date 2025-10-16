@@ -6,12 +6,12 @@ const cors = require("cors");
 // cors for frontend and backend being on different ports
 app.use(cors());
 
-app.use("/", usersRouter);
-app.use("/register", usersRouter);
-app.use("/login", usersRouter);
-app.use("/posts", usersRouter);
-app.use("/posts/:postId", usersRouter);
-app.use("/publish", usersRouter);
+app.use("/api", usersRouter);
+app.use("/api/register", usersRouter);
+app.use("/api/login", usersRouter);
+app.use("/api/posts", usersRouter);
+app.use("/api/posts/:postId", usersRouter);
+app.use("/api/publish", usersRouter);
 
 app.listen(3000, () => {
   console.log("server running on port: 3000...");
