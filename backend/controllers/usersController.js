@@ -3,7 +3,9 @@ const jwt = require("jsonwebtoken");
 
 // get controllers
 exports.getIndex = (req, res) => {
-  res.send("got index from controller");
+  res.json({
+    message: "got the flippin index"
+  });
 };
 
 exports.getRegister = (req, res) => {
