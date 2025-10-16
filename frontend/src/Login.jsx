@@ -1,6 +1,6 @@
-import {Link, Route, Routes} from "react-router-dom"
+import { Link, Route, Routes } from "react-router-dom";
 function Login() {
-  const URL = "http://localhost:3000/";
+  
   return (
     <>
       <h1>Login</h1>
@@ -20,10 +20,6 @@ function Login() {
         <button type="submit" className="login-form-submit-btn">
           Submit
         </button>
-        <button type="button" className="register-btn">
-          Register
-        </button>
-        {/* clicking should redirect to register page*/}
       </form>
       <Link to="/register">Register</Link>
     </>

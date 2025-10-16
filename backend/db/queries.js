@@ -33,6 +33,17 @@ async function allUsers() {
   console.log(users);
 }
 
+async function createUser(name, email, password) {
+  const user = await prisma.user.create({
+    data: {
+      email,
+      password,
+      name,
+    },
+  });
+  console.log("user created");
+}
+
 main()
   .then(async () => {
     await prisma.$disconnect();
@@ -43,4 +54,4 @@ main()
     process.exit(1);
   });
 
-module.exports = { main, allUsers };
+module.exports = { main, allUsers, createUser };

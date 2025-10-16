@@ -1,10 +1,11 @@
 const db = require("../db/queries");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // get controllers
 exports.getIndex = (req, res) => {
   res.json({
-    message: "got the flippin index"
+    message: "got the flippin index",
   });
 };
 
@@ -71,10 +72,20 @@ exports.publish = (req, res) => {
   });
 };
 
-exports.addUser = (req, res) => {
+exports.addUser = async (req, res) => {
   // get data from form
   console.log(req.body.email);
-  // add data to db
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    // add data to db
+    const email = req.body.email;
+    const name = req.body.name;
+    const password = hashedPassword;
+    await db.createUser(name, email, password);
+    res.json({message: "user created successfully"});
+  } catch {
+    res.send("error creating user");
+  }
 
   // redirect to login page
-}
+};
