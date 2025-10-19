@@ -4,7 +4,7 @@ const usersRouter = require("./routes/users");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-// cors for frontend and backend being on different ports
+// cors for frontend talking to backend while being on different ports
 app.use(cors());
 // receive form data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,3 +15,5 @@ app.use("/api", usersRouter);
 app.listen(3000, () => {
   console.log("server running on port: 3000...");
 });
+
+// todo: Login functionality

@@ -10,7 +10,9 @@ exports.getIndex = (req, res) => {
 };
 
 exports.getRegister = (req, res) => {
-  res.send("got register");
+  res.json({
+    message: "hit the getRegister controller",
+  });
 };
 
 exports.getAllPosts = (req, res) => {
@@ -82,7 +84,7 @@ exports.addUser = async (req, res) => {
     const name = req.body.name;
     const password = hashedPassword;
     await db.createUser(name, email, password);
-    res.json({message: "user created successfully"});
+    res.json({ message: "user created successfully" });
   } catch {
     res.send("error creating user");
   }
