@@ -42,20 +42,51 @@ exports.getPost = (req, res) => {
 };
 
 // post controllers
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
   // mock user
-  const user = {
+  /* const user = {
     id: 1,
     username: "brandon",
     email: "brandon@gmail.com",
     isWriter: true,
-  };
-  jwt.sign({ user: user }, "secretkey", { expiresIn: "24h" }, (err, token) => {
+  }; */
+  // find user in db
+  console.log(req.body.email);
+  try {
+    const user = await db.findUser(req.body.email);
+
+    if (!user) {
+      res.json({
+        message: "email not found",
+      });
+    }
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+
+    if (!isMatch) {
+      res.json({
+        message: "wrong password",
+      });
+    }
+    jwt.sign(
+      { user: user },
+      "secretkey",
+      { expiresIn: "24h" },
+      (err, token) => {
+        res.json({
+          token,
+        });
+      }
+    );
+
     res.json({
-      token,
+      message: "success",
+      user: user,
     });
-  });
+  } catch (error) {
+    console.log(error);
+  }
 };
+// sign the jwt to the user
 
 exports.publish = (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {

@@ -44,6 +44,17 @@ async function createUser(name, email, password) {
   console.log("user created");
 }
 
+async function findUser(email) {
+  console.log("find user db called");
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+  console.log(user);
+  return user;
+}
+
 main()
   .then(async () => {
     await prisma.$disconnect();
@@ -54,4 +65,4 @@ main()
     process.exit(1);
   });
 
-module.exports = { main, allUsers, createUser };
+module.exports = { main, allUsers, createUser, findUser };

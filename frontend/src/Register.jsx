@@ -75,7 +75,7 @@ function Register() {
         <button type="submit">Register</button>
       </form>
       <Link to="/">Back to login</Link>
-      {isRegistered ? (<p>Success!</p>) : (<p>Register pls</p>)} 
+      {isRegistered ? (<p>Success!</p>) : (<p>Not registered yet</p>)} 
     </>
   );
 }
