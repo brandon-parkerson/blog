@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 function Posts() {
   const URL = "http://localhost:3000/api/posts";
   const token = localStorage.getItem("token");
+  const [posts, setPosts] = useState([]);
+
   // on render, get posts from server
-  const [posts, setPosts] = useState("");
+
   useEffect(() => {
     try {
       async function fetchData() {
@@ -16,21 +18,26 @@ function Posts() {
           },
         });
         const data = await response.json();
-        const allPosts = data.posts;
+        console.log(data.posts);
+        setPosts(data.posts);
 
-        console.log(allPosts[0].title);
-        return setPosts(allPosts[0].title);
+        // for post in allposts
       }
       fetchData();
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [token]);
 
   return (
     <>
       <h1>Posts</h1>
-      <p>{posts}</p>
+      <p>test</p>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
     </>
   );
 }
