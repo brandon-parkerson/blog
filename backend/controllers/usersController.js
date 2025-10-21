@@ -15,7 +15,8 @@ exports.getRegister = (req, res) => {
   });
 };
 
-exports.getAllPosts = (req, res) => {
+exports.getAllPosts = async (req, res) => {
+  const posts = await db.getAllPosts();
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -23,6 +24,7 @@ exports.getAllPosts = (req, res) => {
       res.json({
         message: "got all posts",
         authData,
+        posts,
       });
     }
   });

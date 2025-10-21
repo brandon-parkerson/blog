@@ -12,6 +12,8 @@ async function main() {
   };
   // db queries
   const users = await prisma.user.findMany();
+  console.log(users);
+  const posts = await prisma.post.findMany();
   if (users.length === 0) {
     const user = await prisma.user.create({
       data: {
@@ -22,6 +24,23 @@ async function main() {
       },
     });
     console.log("added user");
+  }
+  if (posts.length === 0) {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: "brandon.parkerson.dev@gmail.com",
+      },
+    });
+    const post = await prisma.post.create({
+      data: {
+        title: "Example Title",
+        content: "Example content for the post",
+        author: {
+          connect: { id: user.id },
+        },
+      },
+    });
+    console.log("created example post");
   } else {
     console.log(users);
   }
@@ -55,6 +74,11 @@ async function findUser(email) {
   return user;
 }
 
+async function getAllPosts() {
+  const posts = await prisma.post.findMany();
+  console.log(posts);
+  return posts;
+}
 main()
   .then(async () => {
     await prisma.$disconnect();
@@ -65,4 +89,4 @@ main()
     process.exit(1);
   });
 
-module.exports = { main, allUsers, createUser, findUser };
+module.exports = { main, allUsers, createUser, findUser, getAllPosts };
