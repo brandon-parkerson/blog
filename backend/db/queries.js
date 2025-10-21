@@ -76,7 +76,7 @@ async function findUser(email) {
 
 async function getAllPosts() {
   const posts = await prisma.post.findMany();
-  console.log(posts);
+  
   return posts;
 }
 main()

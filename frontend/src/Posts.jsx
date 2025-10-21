@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Posts() {
   const URL = "http://localhost:3000/api/posts";
@@ -20,8 +21,6 @@ function Posts() {
         const data = await response.json();
         console.log(data.posts);
         setPosts(data.posts);
-
-        // for post in allposts
       }
       fetchData();
     } catch (error) {
@@ -32,10 +31,10 @@ function Posts() {
   return (
     <>
       <h1>Posts</h1>
-      <p>test</p>
+
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
+          <li key={post.id}>{post.title}<Link to={`/article/${post.id}`}>Read</Link></li>
         ))}
       </ul>
     </>

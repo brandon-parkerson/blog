@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Posts from "./Posts";
+import Article from "./Article";
 import "./App.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/posts" element={<Posts />}></Route>
+        <Route path="/article/:id" element={<Article />}></Route>
       </Routes>
     </>
   );
