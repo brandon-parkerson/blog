@@ -29,6 +29,7 @@ function Login() {
       } else {
         setServerMessage(message);
         localStorage.setItem("token", token);
+        localStorage.setItem("id", data.userId);
         setRedirect(true);
         console.log(data);
         console.log(message);

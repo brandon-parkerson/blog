@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Posts from "./Posts";
 import Article from "./Article";
+import Write from "./Write";
 import "./App.css";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/posts" element={<Posts />}></Route>
         <Route path="/article/:id" element={<Article />}></Route>
+        <Route path="/write" element={<Write />}></Route>
       </Routes>
     </>
   );

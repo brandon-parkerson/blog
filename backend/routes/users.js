@@ -7,6 +7,7 @@ router.get("/", userController.getIndex);
 router.get("/register", userController.getRegister);
 router.get("/posts", verifyToken, userController.getAllPosts);
 router.get("/posts/:postId", userController.getPost);
+router.get("/writer", userController.checkIfWriter);
 
 // post routes
 router.post("/login", userController.login);

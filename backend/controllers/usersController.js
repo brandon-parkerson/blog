@@ -35,6 +35,7 @@ exports.getPost = (req, res) => {
     if (err) {
       res.sendStatus(403);
     } else {
+      // g
       res.json({
         message: "got single post",
         authData,
@@ -51,6 +52,7 @@ exports.login = async (req, res) => {
   try {
     const user = await db.findUser(req.body.email);
     console.log(user);
+    console.log(user.id);
     if (!user) {
       return res.json({
         message: "email not found",
@@ -70,6 +72,7 @@ exports.login = async (req, res) => {
             res.json({
               token,
               message: "success",
+              userId: user.id,
             });
           }
         );
@@ -111,6 +114,34 @@ exports.addUser = async (req, res) => {
   } catch {
     res.send("error creating user");
   }
+};
 
-  // redirect to login page
+exports.checkIfWriter = async (req, res) => {
+  console.log("called check writer in controller");
+  // find user
+  try {
+    const id = req.get("id");
+    const intId = Number(id);
+    const user = await db.findUserById(intId);
+    if (!user) {
+      console.log("user not found");
+      res.json({ message: "User not found" });
+    } else {
+      const isWriter = user.writer;
+      if (isWriter === false) {
+        console.log("not a writer");
+        res.json({
+          message: "You do not have access",
+        })
+
+      } else if (isWriter === true) {
+        console.log("is a writer");
+        res.json({
+          message: "Access Granted",
+        })
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };

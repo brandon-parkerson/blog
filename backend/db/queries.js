@@ -76,8 +76,18 @@ async function findUser(email) {
 
 async function getAllPosts() {
   const posts = await prisma.post.findMany();
-  
+
   return posts;
+}
+
+async function findUserById(id) {
+  console.log("db called");
+  const user = await prisma.user.findUnique({
+    where: {
+      id: id,
+    }
+  })
+  return user;
 }
 main()
   .then(async () => {
@@ -89,4 +99,11 @@ main()
     process.exit(1);
   });
 
-module.exports = { main, allUsers, createUser, findUser, getAllPosts };
+module.exports = {
+  main,
+  allUsers,
+  createUser,
+  findUser,
+  getAllPosts,
+  findUserById,
+};
