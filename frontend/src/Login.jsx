@@ -39,7 +39,6 @@ function Login() {
       console.log(error);
     }
   };
-  // the problem was that i did not use the .json() func to read the data the server was sending back
 
   function handleChangeEmail(e) {
     const email = e.target.value;

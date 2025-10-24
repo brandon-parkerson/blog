@@ -13,7 +13,7 @@ router.get("/writer", userController.checkIfWriter);
 router.post("/login", userController.login);
 router.post("/publish", verifyToken, userController.publish);
 router.post("/register", userController.addUser);
-
+router.post("/writer", userController.postArticle);
 function verifyToken(req, res, next) {
   // get auth header value
   const bearerHeader = req.headers["authorization"];

@@ -132,16 +132,33 @@ exports.checkIfWriter = async (req, res) => {
         console.log("not a writer");
         res.json({
           message: "You do not have access",
-        })
-
+        });
       } else if (isWriter === true) {
         console.log("is a writer");
         res.json({
           message: "Access Granted",
-        })
+        });
       }
     }
   } catch (error) {
     console.log(error);
   }
+};
+
+exports.postArticle = async (req, res) => {
+  const title = req.body.title;
+  const post = req.body.post;
+  const id = req.body.id;
+  const idInt = Number(id);
+
+  try {
+    db.addArticle(idInt, title, post);
+    console.log("added article");
+    res.json({
+      message: "post success",
+    })
+  } catch (error) {
+    console.log("error adding article");
+  }
+  console.log(`${title}, ${post}`);
 };

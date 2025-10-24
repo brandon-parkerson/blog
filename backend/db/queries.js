@@ -85,9 +85,23 @@ async function findUserById(id) {
   const user = await prisma.user.findUnique({
     where: {
       id: id,
-    }
-  })
+    },
+  });
   return user;
+}
+
+async function addArticle(id, title, article) {
+  console.log("add article db called");
+  const post = await prisma.post.create({
+    data: {
+      title,
+      content: article,
+      author: {
+        connect: { id: id },
+      },
+    },
+  });
+  return post;
 }
 main()
   .then(async () => {
@@ -106,4 +120,5 @@ module.exports = {
   findUser,
   getAllPosts,
   findUserById,
+  addArticle,
 };

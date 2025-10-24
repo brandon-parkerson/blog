@@ -57,7 +57,6 @@ function Posts() {
     }
   }
   if (serverMessage === "Access Granted") {
-    console.log("should navigate");
     navigate("/write");
   }
   return (
