@@ -2,7 +2,6 @@ const db = require("../db/queries");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-// get controllers
 exports.getIndex = (req, res) => {
   res.json({
     message: "got the flippin index",
@@ -35,7 +34,6 @@ exports.getPost = (req, res) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      // g
       res.json({
         message: "got single post",
         authData,
@@ -44,10 +42,7 @@ exports.getPost = (req, res) => {
   });
 };
 
-// post controllers
 exports.login = async (req, res) => {
-  // find user in db
-
   console.log(req.body.email);
   try {
     const user = await db.findUser(req.body.email);
@@ -74,7 +69,7 @@ exports.login = async (req, res) => {
               message: "success",
               userId: user.id,
             });
-          }
+          },
         );
       }
     }
@@ -156,7 +151,7 @@ exports.postArticle = async (req, res) => {
     console.log("added article");
     res.json({
       message: "post success",
-    })
+    });
   } catch (error) {
     console.log("error adding article");
   }

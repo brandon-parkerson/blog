@@ -6,14 +6,14 @@ const userController = require("../controllers/usersController");
 router.get("/", userController.getIndex);
 router.get("/register", userController.getRegister);
 router.get("/posts", verifyToken, userController.getAllPosts);
-router.get("/posts/:postId", userController.getPost);
-router.get("/writer", userController.checkIfWriter);
+router.get("/posts/:postId", verifyToken, userController.getPost);
+router.get("/writer", verifyToken, userController.checkIfWriter);
 
 // post routes
 router.post("/login", userController.login);
 router.post("/publish", verifyToken, userController.publish);
-router.post("/register", userController.addUser);
-router.post("/writer", userController.postArticle);
+router.post("/register", verifyToken, userController.addUser);
+router.post("/writer", verifyToken, userController.postArticle);
 function verifyToken(req, res, next) {
   // get auth header value
   const bearerHeader = req.headers["authorization"];

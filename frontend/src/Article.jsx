@@ -18,8 +18,8 @@ function Article() {
         <>
             <h1>Article</h1>
             <p>content of: {id}</p>
+	
             <Link to={"/posts"}>Home</Link>
-
         </>
         
         

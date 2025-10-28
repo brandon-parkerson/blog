@@ -51,7 +51,7 @@ export default function Write() {
           onChange={handlePost}
         ></textarea>
         <button type="submit" onClick={handleSubmit}>
-          Submit
+          Publish
         </button>
       </form>
       <p>{serverMessage}</p>

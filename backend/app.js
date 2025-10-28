@@ -16,4 +16,5 @@ app.listen(3000, () => {
   console.log("server running on port: 3000...");
 });
 
-// todo: go to post content
+// TODO: check jwt on all routes. redirect to login screen if not verified
+
