@@ -15,6 +15,7 @@ router.post("/login", userController.login);
 router.post("/publish", verifyToken, userController.publish);
 router.post("/register", verifyToken, userController.addUser);
 router.post("/writer", userController.postArticle);
+router.post("/comment", userController.postComment);
 function verifyToken(req, res, next) {
   // get auth header value
   const bearerHeader = req.headers["authorization"];

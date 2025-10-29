@@ -6,6 +6,8 @@ function Article() {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
   const { id } = useParams();
+  const [title, setTtitle] = useState("");
+  const [comment, setComment] = useState("");
   const URL = `http://localhost:3000/api/content`;
   const token = localStorage.getItem("token");
   // get comments for the current article on page load
@@ -26,6 +28,7 @@ function Article() {
         console.log(data.post.content);
 
         setContent(data.post.content);
+        setTtitle(data.post.title);
         // setContent(data.content);
       }
       fetchContent();
@@ -34,16 +37,40 @@ function Article() {
     }
   }, [token]);
 
-  // get content
+  function handleComment(e) {
+    const comment = e.target.value;
+    setComment(comment);
+  }
 
+  async function handleCommentSubmit() {
+    // post to db
+    try {
+      const response = await fetch("http://localhost:3000/api/comment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ comment: comment, postId: id }),
+      });
+      const data = response.json();
+      const message = data.message;
+      console.log(message);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
-      <h1>Article</h1>
-      <p>content of: {id}</p>
-
       <Link to={"/posts"}>Home</Link>
-      <div className="comment-section"></div>
+      <h1>{title}</h1>
       <div>{content}</div>
+      <form onSubmit={handleCommentSubmit}>
+        <input
+          type="text"
+          placeholder="Leave a comment..."
+          onChange={handleComment}
+        ></input>
+        <button type="submit">Add comment</button>
+      </form>
+      <div className="comment-section">{comments}</div>
     </>
   );
 }

@@ -120,6 +120,21 @@ async function getPost(id) {
   return post;
 }
 
+async function postComment(id, content) {
+  console.log("db comment post activated");
+  const comment = await prisma.post.create({
+    data: {
+      content: content,
+      author: {
+        connect: { id: id },
+      },
+      post: {
+        connect: { id: id },
+      },
+    },
+  });
+}
+
 module.exports = {
   main,
   allUsers,
@@ -129,4 +144,5 @@ module.exports = {
   findUserById,
   addArticle,
   getPost,
+  postComment,
 };

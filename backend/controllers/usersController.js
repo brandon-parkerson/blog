@@ -159,3 +159,17 @@ exports.postArticle = async (req, res) => {
   }
   console.log(`${title}, ${post}`);
 };
+
+exports.postComment = async (req, res) => {
+  const postId = req.body.postId;
+  const comment = req.body.comment;
+  try {
+    await db.postComment(comment, postId);
+    console.log("added comment");
+    res.json({
+      message: "comment post success",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
