@@ -29,17 +29,19 @@ exports.getAllPosts = async (req, res) => {
   });
 };
 
-exports.getPost = (req, res) => {
-  jwt.verify(req.token, "secretkey", (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      res.json({
-        message: "got single post",
-        authData,
-      });
-    }
-  });
+exports.getPost = async (req, res) => {
+  // get post from db
+  try {
+    const id = req.get("id");
+    const postId = Number(id);
+    console.log(id);
+    const post = await db.getPost(postId);
+    res.json({
+      post: post,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.login = async (req, res) => {
@@ -153,7 +155,7 @@ exports.postArticle = async (req, res) => {
       message: "post success",
     });
   } catch (error) {
-    console.log("error adding article");
+    console.log(error);
   }
   console.log(`${title}, ${post}`);
 };

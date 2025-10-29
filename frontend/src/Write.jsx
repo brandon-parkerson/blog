@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Write() {
   const [post, setPost] = useState("");
   const [title, setTitle] = useState("");
   const [serverMessage, setServerMessage] = useState("");
+
+  let navigate = useNavigate();
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -31,6 +34,10 @@ export default function Write() {
     setPost(post);
   }
 
+  function handleHome() {
+    navigate("/posts");
+  }
+
   return (
     <>
       <h1>Write a post</h1>
@@ -55,6 +62,7 @@ export default function Write() {
         </button>
       </form>
       <p>{serverMessage}</p>
+      <button onClick={handleHome}>Home</button>
     </>
   );
 }

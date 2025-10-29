@@ -8,12 +8,13 @@ router.get("/register", userController.getRegister);
 router.get("/posts", verifyToken, userController.getAllPosts);
 router.get("/posts/:postId", verifyToken, userController.getPost);
 router.get("/writer", verifyToken, userController.checkIfWriter);
+router.get("/content", userController.getPost);
 
 // post routes
 router.post("/login", userController.login);
 router.post("/publish", verifyToken, userController.publish);
 router.post("/register", verifyToken, userController.addUser);
-router.post("/writer", verifyToken, userController.postArticle);
+router.post("/writer", userController.postArticle);
 function verifyToken(req, res, next) {
   // get auth header value
   const bearerHeader = req.headers["authorization"];

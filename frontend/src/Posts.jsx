@@ -35,7 +35,6 @@ function Posts() {
   }, [token]);
   function handleWriteLink(e) {
     e.preventDefault();
-    // send get to server, check if user is a writer, if not then tell user they do not have access
     // set a get route for writer where it checks user writer status
     try {
       async function goToWriter() {

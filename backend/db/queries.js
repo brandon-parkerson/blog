@@ -12,7 +12,6 @@ async function main() {
   };
   // db queries
   const users = await prisma.user.findMany();
-  console.log(users);
   const posts = await prisma.post.findMany();
   if (users.length === 0) {
     const user = await prisma.user.create({
@@ -40,14 +39,12 @@ async function main() {
         },
       },
     });
-    console.log("created example post");
   } else {
     console.log(users);
   }
 }
 
 async function allUsers() {
-  console.log("get all users called");
   const users = await prisma.user.findMany();
   console.log(users);
 }
@@ -113,6 +110,16 @@ main()
     process.exit(1);
   });
 
+async function getPost(id) {
+  console.log("db get post activated");
+  const post = await prisma.post.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return post;
+}
+
 module.exports = {
   main,
   allUsers,
@@ -121,4 +128,5 @@ module.exports = {
   getAllPosts,
   findUserById,
   addArticle,
+  getPost,
 };
