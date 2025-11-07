@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 function Article() {
   const [articleDate, setArticleDate] = useState("");
+  const [articleAuthor, setArticleAuthor] = useState("");
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
   const { id } = useParams();
@@ -32,6 +33,7 @@ function Article() {
 
         setContent(data.post.content);
         setTitle(data.post.title);
+        setArticleAuthor(data.post.author.name);
         // setArticleDate(data.post.createdAt);
         const date = new Date(data.post.createdAt);
         setArticleDate(date.toDateString());
@@ -90,6 +92,7 @@ function Article() {
         <Link to={"/posts"}>Home</Link>
         <h1>{title}</h1>
         <h2>{articleDate}</h2>
+        <i>Written by {articleAuthor}</i>
         <div>{content}</div>
         <form onSubmit={handleCommentSubmit} className="">
           <input

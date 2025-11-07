@@ -116,6 +116,9 @@ async function getPost(id) {
     where: {
       id: id,
     },
+    include: {
+      author: true,
+    },
   });
   return post;
 }
