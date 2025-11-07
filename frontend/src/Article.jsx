@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function Article() {
+  const [articleDate, setArticleDate] = useState("");
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
   const { id } = useParams();
@@ -31,7 +32,11 @@ function Article() {
 
         setContent(data.post.content);
         setTitle(data.post.title);
+        // setArticleDate(data.post.createdAt);
+        const date = new Date(data.post.createdAt);
+        setArticleDate(date.toDateString());
       }
+
       async function fetchComments() {
         const response = await fetch(commentURL, {
           method: "GET",
@@ -44,7 +49,6 @@ function Article() {
         const data = await response.json();
         console.log(data.comments);
         setComments(data.comments);
-        console.log(comments);
       }
 
       fetchComments();
@@ -84,6 +88,7 @@ function Article() {
     <>
       <Link to={"/posts"}>Home</Link>
       <h1>{title}</h1>
+      <h2>{articleDate}</h2>
       <div>{content}</div>
       <form onSubmit={handleCommentSubmit}>
         <input
