@@ -42,7 +42,6 @@ function Article() {
           },
         });
         const data = await response.json();
-        console.log(data);
         console.log(data.comments);
         setComments(data.comments);
         console.log(comments);
@@ -97,8 +96,8 @@ function Article() {
       <ul>
         {comments.map((comment) => (
           <li key={comment.id}>
-            {comment.content}
-            {comment.authorId}
+            <p>{comment.content}</p>
+            <i>-{comment.author.name}</i>
           </li>
         ))}
       </ul>
