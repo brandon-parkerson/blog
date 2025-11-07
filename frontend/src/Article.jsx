@@ -86,26 +86,28 @@ function Article() {
 
   return (
     <>
-      <Link to={"/posts"}>Home</Link>
-      <h1>{title}</h1>
-      <h2>{articleDate}</h2>
-      <div>{content}</div>
-      <form onSubmit={handleCommentSubmit}>
-        <input
-          type="text"
-          placeholder="Leave a comment..."
-          onChange={handleComment}
-        ></input>
-        <button type="submit">Add comment</button>
-      </form>
-      <ul>
-        {comments.map((comment) => (
-          <li key={comment.id}>
-            <p>{comment.content}</p>
-            <i>-{comment.author.name}</i>
-          </li>
-        ))}
-      </ul>
+      <div className="write-page">
+        <Link to={"/posts"}>Home</Link>
+        <h1>{title}</h1>
+        <h2>{articleDate}</h2>
+        <div>{content}</div>
+        <form onSubmit={handleCommentSubmit} className="">
+          <input
+            type="text"
+            placeholder="Leave a comment..."
+            onChange={handleComment}
+          ></input>
+          <button type="submit">Add comment</button>
+        </form>
+        <ul>
+          {comments.map((comment) => (
+            <li key={comment.id}>
+              <p>{comment.content}</p>
+              <i>-{comment.author.name}</i>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }

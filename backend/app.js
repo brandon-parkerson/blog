@@ -15,3 +15,5 @@ app.use("/api", usersRouter);
 app.listen(3000, () => {
   console.log("server running on port: 3000...");
 });
+
+// TODO: style this bih

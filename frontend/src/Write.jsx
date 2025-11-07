@@ -40,29 +40,41 @@ export default function Write() {
 
   return (
     <>
-      <h1>Write a post</h1>
-      <form>
-        <input
-          type="text"
-          placeholder="title"
-          id="title"
-          name="title"
-          onChange={handleTitle}
-        />
-        <textarea
-          name="article"
-          id="article"
-          rows={20}
-          cols={50}
-          placeholder="Write your post..."
-          onChange={handlePost}
-        ></textarea>
-        <button type="submit" onClick={handleSubmit}>
-          Publish
-        </button>
-      </form>
-      <p>{serverMessage}</p>
-      <button onClick={handleHome}>Home</button>
+      <div className="write-page">
+        <nav className="write-nav">
+          <button onClick={handleHome} className="write-home-btn">
+            Home
+          </button>
+        </nav>
+        <h1>Write a post</h1>
+        <form className="write-form">
+          <input
+            type="text"
+            placeholder="title"
+            id="title"
+            name="title"
+            onChange={handleTitle}
+            className="write-title-input"
+          />
+          <textarea
+            name="article"
+            id="article"
+            rows={20}
+            cols={50}
+            placeholder="Write your post..."
+            onChange={handlePost}
+            className="write-textarea"
+          ></textarea>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="write-publish-btn"
+          >
+            Publish
+          </button>
+        </form>
+        <p>{serverMessage}</p>
+      </div>
     </>
   );
 }
