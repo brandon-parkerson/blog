@@ -120,21 +120,41 @@ async function getPost(id) {
   return post;
 }
 
-async function postComment(id, content) {
+async function postComment(userId, content, postId) {
   console.log("db comment post activated");
-  const comment = await prisma.post.create({
+  const comment = await prisma.comment.create({
     data: {
       content: content,
       author: {
-        connect: { id: id },
+        connect: { id: userId },
       },
-      post: {
-        connect: { id: id },
+      commentToPost: {
+        connect: { id: postId },
       },
     },
   });
 }
 
+async function getAllComments(postId) {
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: postId,
+    },
+    include: {
+      author: true,
+    },
+  });
+  return comments;
+}
+
+async function getCommentAuthor(authorId) {
+  const author = await prisma.user.findUnique({
+    where: {
+      id: authorId,
+    },
+  });
+  return author;
+}
 module.exports = {
   main,
   allUsers,
@@ -145,4 +165,6 @@ module.exports = {
   addArticle,
   getPost,
   postComment,
+  getAllComments,
+  getCommentAuthor,
 };

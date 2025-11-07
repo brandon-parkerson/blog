@@ -162,12 +162,43 @@ exports.postArticle = async (req, res) => {
 
 exports.postComment = async (req, res) => {
   const postId = req.body.postId;
+  const intPostId = Number(postId);
   const comment = req.body.comment;
+  // userId, content, postId, title
+  const userId = req.body.userId;
+  const intUserId = Number(userId);
+
   try {
-    await db.postComment(comment, postId);
+    await db.postComment(intUserId, comment, intPostId);
     console.log("added comment");
     res.json({
       message: "comment post success",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getComments = async (req, res) => {
+  try {
+    const postId = req.get("postId");
+    const intPostId = Number(postId);
+    const comments = await db.getAllComments(intPostId);
+    res.json({
+      comments,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getCommentAuthor = async (req, res) => {
+  const authorId = req.get(authorId);
+  const intAuthorId = Number(authorId);
+  try {
+    const author = await db.getCommentAuthor(intAuthorId);
+    res.json({
+      author,
     });
   } catch (error) {
     console.log(error);

@@ -6,10 +6,12 @@ function Article() {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
   const { id } = useParams();
-  const [title, setTtitle] = useState("");
+  const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
   const URL = `http://localhost:3000/api/content`;
+  const commentURL = `http://localhost:3000/api/comments`;
   const token = localStorage.getItem("token");
+
   // get comments for the current article on page load
   useEffect(() => {
     try {
@@ -28,9 +30,25 @@ function Article() {
         console.log(data.post.content);
 
         setContent(data.post.content);
-        setTtitle(data.post.title);
-        // setContent(data.content);
+        setTitle(data.post.title);
       }
+      async function fetchComments() {
+        const response = await fetch(commentURL, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            postId: id,
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+        console.log(data.comments);
+        setComments(data.comments);
+        console.log(comments);
+      }
+
+      fetchComments();
       fetchContent();
     } catch (error) {
       console.log(error);
@@ -44,11 +62,16 @@ function Article() {
 
   async function handleCommentSubmit() {
     // post to db
+    const userId = localStorage.getItem("id");
     try {
       const response = await fetch("http://localhost:3000/api/comment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ comment: comment, postId: id }),
+        body: JSON.stringify({
+          comment: comment,
+          postId: id,
+          userId: userId,
+        }),
       });
       const data = response.json();
       const message = data.message;
@@ -57,6 +80,7 @@ function Article() {
       console.log(error);
     }
   }
+
   return (
     <>
       <Link to={"/posts"}>Home</Link>
@@ -70,7 +94,14 @@ function Article() {
         ></input>
         <button type="submit">Add comment</button>
       </form>
-      <div className="comment-section">{comments}</div>
+      <ul>
+        {comments.map((comment) => (
+          <li key={comment.id}>
+            {comment.content}
+            {comment.authorId}
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

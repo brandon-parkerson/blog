@@ -9,6 +9,8 @@ router.get("/posts", verifyToken, userController.getAllPosts);
 router.get("/posts/:postId", verifyToken, userController.getPost);
 router.get("/writer", verifyToken, userController.checkIfWriter);
 router.get("/content", userController.getPost);
+router.get("/comments", userController.getComments);
+router.get("/comment-author", userController.getCommentAuthor);
 
 // post routes
 router.post("/login", userController.login);
