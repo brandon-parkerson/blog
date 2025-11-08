@@ -49,11 +49,12 @@ body {
 }
 
 .write-publish-btn {
-  width: 10%;
+  min-width: 15%;
 }
 
 .write-title-input {
   height: 7%;
+  text-align: center;
 }
 
 .write-nav {
@@ -64,4 +65,16 @@ body {
 
 .write-textarea {
   width: 65vw;
+}
+
+.posts-list {
+  list-style: none;
+  text-align: center;
+  width: 50vw;
+}
+
+.post-bullet {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, Navigate, redirect, useRoutes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Posts() {
@@ -7,7 +7,6 @@ function Posts() {
   const writerUrl = "http://localhost:3000/api/writer";
   const token = localStorage.getItem("token");
   const [posts, setPosts] = useState([]);
-  const [redirectUser, setRedirectUser] = useState(false);
   const [serverMessage, setServerMessage] = useState("");
 
   let navigate = useNavigate();
@@ -66,11 +65,13 @@ function Posts() {
       </Link>
       <p>{serverMessage}</p>
 
-      <ul>
+      <ul className="posts-list">
         {posts.map((post) => (
-          <li key={post.id}>
+          <li key={post.id} className="post-bullet">
             {post.title}
-            <Link to={`/article/${post.id}`}>Read</Link>
+            <div>
+              <Link to={`/article/${post.id}`}>Read</Link>
+            </div>
           </li>
         ))}
       </ul>

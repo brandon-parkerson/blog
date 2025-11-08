@@ -20,6 +20,7 @@ export default function Write() {
       const data = response.json();
       const message = data.message;
       setServerMessage(message);
+      navigate("/posts");
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +51,7 @@ export default function Write() {
         <form className="write-form">
           <input
             type="text"
-            placeholder="title"
+            placeholder="Title"
             id="title"
             name="title"
             onChange={handleTitle}
